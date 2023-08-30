@@ -1,0 +1,17 @@
+---
+
+- name: Test Connection to my servres
+  hosts: nginx_servers
+  become: yes
+
+  tasks:
+  - name: Install nginx on all servers 
+    apt: name=nginx state=latest
+
+  - name: Change web site
+    ansible.builtin.copy:
+      src: ../web_site/index.html
+      dest: /var/www/html/index.html
+      owner: user
+      group: user
+      mode: '0644'
