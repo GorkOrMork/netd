@@ -14,6 +14,10 @@ terraform {
   required_version = ">= 0.13"
 }
 
+data "yandex_compute_image" "debian" {
+  family = "debian-11"
+}
+
 # Провайдер
 provider "yandex" {
   token        = var.yc_token
