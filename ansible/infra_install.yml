@@ -6,7 +6,7 @@
     - nginx_install
 
 - name: Установка Zabbix Server и Zabbix Web
-  hosts: ваш_хост
+  hosts: хост
   become: yes
   roles:
     - zabbix_install
