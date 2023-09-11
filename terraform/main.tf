@@ -288,4 +288,4 @@ resource "yandex_compute_snapshot" "snapshot-1" {
   source_disk_id       = ["epdhpn084qbsot4lh2gd", "fhm0n2jbi81qk8p0e6nh", "fhm9imafr8utb34kofo9", "fhmbld9actpn9vbm38kl", "fhmqfeakkmvvtlgccuu3", "fhmrc0tqfg6nklceoloj"]
   schedule_repeat_interval = "1d"
   schedule_end_date = timestamp() + duration("7d")
-
+}
