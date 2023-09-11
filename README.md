@@ -25,7 +25,8 @@ http://158.160.120.122/site/
 
 Так выглядит вывод команды:
 
-![](./images/balancer_output.png)
+![image](https://github.com/GorkOrMork/netd/assets/109193124/9b6a6b15-1d1d-4413-b1fe-2d524fb8b0b5)
+
 
 При выполнении данной команды получаем вывод, показывающий процесс маршрутизации запросов. Хост-бастион принимает запросы и передает их на балансировщик, который, в свою очередь, выбирает один из сайтов для перенаправления пользователя в зависимости от текущей нагрузки на них. Эта функциональность реализована с использованием веб-сервера Nginx.
 
@@ -44,7 +45,8 @@ http://158.160.120.122/zabbix
 
 Пароль: zabbix
 
-![](./images/zabbix_monitor.png)
+![image](https://github.com/GorkOrMork/netd/assets/109193124/45f06199-9071-4744-9355-6cc6c46fa489)
+
 
 ---
 
@@ -55,13 +57,16 @@ http://158.160.120.122/zabbix
 
 kibana.yml
 
-![](./images/kibana_address_to_edit.png)
+![image](https://github.com/GorkOrMork/netd/assets/109193124/00a6823e-1ecb-44f7-aa87-26ce5356623c)
+
 
 filebeat.yml
 
-![](./images/filebeat_address_to_edit_1.png)
+![image](https://github.com/GorkOrMork/netd/assets/109193124/474c0804-b318-4f35-be37-a0f22a435eb3)
 
-![](./images/filebeat_address_to_edit_2.png)
+
+![image](https://github.com/GorkOrMork/netd/assets/109193124/df26352f-da4e-4e26-aadd-d260b08cd1ea)
+
 
 Мониторинг данных Kibana доступен по этому адресу:
 
@@ -83,4 +88,5 @@ http://158.160.41.138/app/discover#/?_g=(filters:!(),refreshInterval:(pause:!f,v
 ### Резервное копирование
 В панели управления Яндекс Клауд было настроено создание снапшотов. Резервное копирование происходит ежедневно, срок хранения резервной копии - одна неделя. Как и требовалось.
 
-![](./images/image.png)
+![image](https://github.com/GorkOrMork/netd/assets/109193124/ddd96ace-2a1c-4d65-b8b5-a861b245bfba)
+

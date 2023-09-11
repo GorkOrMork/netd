@@ -14,6 +14,10 @@ terraform {
   required_version = ">= 0.13"
 }
 
+data "yandex_compute_image" "debian" {
+  family = "debian-11"
+}
+
 # Провайдер
 provider "yandex" {
   token        = var.yc_token
@@ -54,7 +58,7 @@ resource "yandex_compute_instance" "nginxserver1" {
 
   boot_disk{
     initialize_params {
-      image_id = "b1gafeq1693jasdseoml"
+      image_id = data.yandex_compute_image.debian.family
       size = 39
       description = "boot disk for nginx_server1"
     }
@@ -80,7 +84,7 @@ resource "yandex_compute_instance" "nginxserver2" {
 
   boot_disk{
     initialize_params {
-      image_id = "b1gafeq1693jasdseoml"
+      image_id = data.yandex_compute_image.debian.family
       size = 40
       description = "boot disk for nginx_server1"
     }
@@ -106,7 +110,7 @@ resource "yandex_compute_instance" "elastic"{
 
   boot_disk{
     initialize_params {
-      image_id = "b1gafeq1693jasdseoml"
+      image_id = data.yandex_compute_image.debian.family
       size = 40
       description = "boot disk for elastic"
     }
@@ -132,7 +136,7 @@ resource "yandex_compute_instance" "kibana"{
 
   boot_disk{
     initialize_params {
-      image_id = "b1gafeq1693jasdseoml"
+      image_id = data.yandex_compute_image.debian.family
       size = 40
       description = "boot disk for kibana"
     }
@@ -199,7 +203,7 @@ resource "yandex_compute_instance" "zabbix_vm" {
 
   boot_disk {
     initialize_params {
-      image_id = "b1gafeq1693jasdseoml"
+      image_id = data.yandex_compute_image.debian.family
       size = 40
       description = "boot disk for zabbix"
     }
@@ -278,4 +282,10 @@ resource "yandex_compute_instance_group" "instance_group" {
       instance_template_id = yandex_compute_instance.nginxserver2.id
     }
   }
+}
+resource "yandex_compute_snapshot" "snapshot-1" {
+  name                 = "disk-snapshot1"
+  source_disk_id       = ["epdhpn084qbsot4lh2gd", "fhm0n2jbi81qk8p0e6nh", "fhm9imafr8utb34kofo9", "fhmbld9actpn9vbm38kl", "fhmqfeakkmvvtlgccuu3", "fhmrc0tqfg6nklceoloj"]
+  schedule_repeat_interval = "1d"
+  schedule_end_date = timestamp() + duration("7d")
 }
