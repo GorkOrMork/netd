@@ -1,0 +1,30 @@
+---
+- name: Установка Nginx
+  hosts: nginx_servers
+  become: yes
+  roles:
+    - nginx_install
+
+- name: Установка Zabbix Server и Zabbix Web
+  hosts: ваш_хост
+  become: yes
+  roles:
+    - zabbix_install
+
+- name: Установка Filebeat
+  hosts: filebeat_node
+  become: yes
+  roles:
+    - filebeat_install
+
+- name: Установка Kibana
+  hosts: kibana_server
+  become: yes
+  roles:
+    - kibana_install
+
+- name: Установка Elasticsearch
+  hosts: elastic_server
+  become: yes
+  roles:
+    - elasticsearch_install

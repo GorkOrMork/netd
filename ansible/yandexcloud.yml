@@ -1,0 +1,6 @@
+plugin: yandexcloud
+source_profile: default
+regions:
+    - ru-central1
+auth:
+    service_account_key_file: "key.json"
