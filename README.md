@@ -68,9 +68,9 @@ filebeat.yml
 ![image](https://github.com/GorkOrMork/netd/assets/109193124/df26352f-da4e-4e26-aadd-d260b08cd1ea)
 
 
-Мониторинг данных Kibana доступен по этому адресу:
+Мониторинг данных Vector доступен по этому адресу:
 
-http://158.160.41.138/app/discover#/?_g=(filters:!(),refreshInterval:(pause:!f,value:10000),time:(from:now-1w,to:now))&_a=(columns:!(),filters:!(),index:'93960162-f781-44ee-b72b-996ffc42a9e0',interval:auto,query:(language:kuery,query:''),sort:!(!('@timestamp',desc)))
+[http://158.160.41.138/app/discover#/?_g=(filters:!(),refreshInterval:(pause:!f,value:10000),time:(from:now-1w,to:now))&_a=(columns:!(),filters:!(),index:'93960162-f781-44ee-b72b-996ffc42a9e0',interval:auto,query:(language:kuery,query:''),sort:!(!('@timestamp',desc)))](http://158.160.41.138/app/discover#/view/47138ba0-565b-11ee-9ed7-81950bf72f00?_g=(filters:!(),refreshInterval:(pause:!t,value:60000),time:(from:now-2M,to:now))&_a=(columns:!(),filters:!(),grid:(),hideChart:!f,index:ab1fe0c6-d718-4d88-b501-3c0cdcf98ef1,interval:auto,query:(language:kuery,query:''),sort:!(!(timestamp,desc))))
 
 Логи управляются и визуализируются с использованием Kibana, Elasticsearch и Filebeat. Kibana используется для визуализации логов Nginx, а Filebeat служит для импорта логов из виртуальных машин с сайтами.
 
