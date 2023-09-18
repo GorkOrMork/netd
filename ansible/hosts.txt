@@ -1,0 +1,24 @@
+[nginx_servers]
+51.250.12.209
+158.160.4.113
+
+[filebeat_node]
+51.250.12.209
+158.160.4.113
+
+[zabbix_server]
+51.250.4.38
+
+[elastic_server]
+158.160.47.17
+
+[kibana_server]
+158.160.41.138
+
+[all:vars]
+ansible_user=user
+ansible_ssh_private_key_file=../ssh_key/key2
+
+#grafana_moonitor_ip_pub = ""
+#nginx_server1_ip_pub = ""
+#nginx_server2_ip_pub = ""

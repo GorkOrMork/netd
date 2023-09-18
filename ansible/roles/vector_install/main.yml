@@ -1,0 +1,54 @@
+---
+
+- name: Install Vector
+  hosts: vector_server
+  become: yes
+
+  tasks:
+  - name: Update apt cache
+    apt:
+      update_cache: yes
+
+  - name: Install gnupg, apt-transport-https
+    apt:
+      name:
+      - apt-transport-https
+      - gnupg
+      state: present
+
+  - name: Get Vector
+    ansible.builtin.get_url:
+      url: https://mirror.yandex.ru/mirrors/elastic/7/pool/main/v/vector/vector-7.9.3-amd64.deb
+      dest: /home/user/
+
+  - name: Extract Vector
+    ansible.builtin.unarchive:
+      src: /etc/vector/vector.toml
+      dest: /etc/vector
+      remote_src: yes
+      owner: root
+      group: root
+      mode: 0755
+
+  - name: Create Vector Configuration Directory
+    file:
+      path: /etc/vector
+      state: directory
+      owner: root
+      group: root
+      mode: 0755
+
+  - name: Copy Vector Configuration File
+    copy:
+      src: ../vector_files/vector.toml
+      dest: /etc/vector/vector.toml
+      mode: 0644
+      owner: root
+      group: root
+
+  - name: Start Vector Service
+    systemd:
+      daemon_reload: yes
+      name: vector
+      state: started
+      enabled: yes

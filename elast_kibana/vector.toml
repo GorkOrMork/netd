@@ -1,0 +1,48 @@
+#                                    __   __  __
+#                                    \ \ / / / /
+#                                     \ V / / /
+#                                      \_/  \/
+#
+#                                    V E C T O R
+#                                   Configuration
+#
+# ------------------------------------------------------------------------------
+# Website: https://vector.dev
+# Docs: https://vector.dev/docs
+# Chat: https://chat.vector.dev
+# ------------------------------------------------------------------------------
+
+# Change this to use a non-default directory for Vector data storage:
+# data_dir = "/var/lib/vector"
+[sources.nginx_source]
+type = "file"
+ignore_older_secs = 600
+include = [ "/var/log/nginx/accesss.log" ]
+read_from = "beginning"
+max_line_bytes = 102_400
+max_read_bytes = 2_048
+
+[transforms.modify_logs]
+type = "remap"
+inputs = ["nginx_source"]
+source = """
+. = parse_regex!(.message, r'^\"(?P<timestamp>.*)\" client=(?P<client>.*) method=(?P<method>.*) request=\"(?P<method_type>.*) (?P<request_path>.*) (?P<http_version>.*)\" request_length=(?P<request_length>.*) status=(?P<status>.*) bytes_sent=(?P<bytes_sent>.*) body_bytes_sent=(?P<body_bytes_sent>.*) referer=(?P<referer>.*) user_agent=\"(?P<user_agent>.*)\" upstream_addr=(?P<upstream_addr>.*) upstream_status=(?P<upstream_status>.*) request_time=(?P<request_time>.*) upstream_response_time=(?P<upstream_response_time>.*) upstream_connect_time=(?P<upstream_connect_time>.*) upstream_header_time=(?P<upstream_header_time>.*)$')
+#covnert metrics to proper types
+.timestamp = parse_timestamp(.timestamp, "%Y/%m/%d %H:%M:%S %z") ?? now()
+.request_length = to_int!(.request_length)
+.status = to_int!(.status)
+.bytes_sent = to_int!(.bytes_sent)
+.body_bytes_sent = to_int!(.body_bytes_sent)
+.upstream_status = to_int!(.upstream_status)
+.request_time = to_float!(.request_time)
+.upstream_response_time = to_float!(.upstream_response_time)
+.upstream_connect_time = to_float!(.upstream_connect_time)
+.upstream_header_time = to_float!(.upstream_header_time)
+.host = "YOUR_HOSTNAME_HERE"
+"""
+[sinks.send_to_elastic]
+type = "elasticsearch"
+inputs = [ "modify_logs" ]
+endpoint = "http://158.160.47.17:9200"
+bulk.index = "websitelogs-%F"
+mode = "bulk"

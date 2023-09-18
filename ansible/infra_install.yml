@@ -17,11 +17,11 @@
   roles:
     - filebeat_install
 
-- name: Установка Kibana
+- name: Установка Vector
   hosts: kibana_server
   become: yes
   roles:
-    - kibana_install
+    - vector_install
 
 - name: Установка Elasticsearch
   hosts: elastic_server

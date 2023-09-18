@@ -285,7 +285,7 @@ resource "yandex_compute_instance_group" "instance_group" {
 }
 resource "yandex_compute_snapshot" "snapshot-1" {
   name                 = "disk-snapshot1"
-  source_disk_id       = ["epdhpn084qbsot4lh2gd", "fhm0n2jbi81qk8p0e6nh", "fhm9imafr8utb34kofo9", "fhmbld9actpn9vbm38kl", "fhmqfeakkmvvtlgccuu3", "fhmrc0tqfg6nklceoloj"]
+  managed_disk_names   = ["disk1", "disk2", "disk3", "disk4", "disk5", "disk6"]
   schedule_repeat_interval = "1d"
   schedule_end_date = timestamp() + duration("7d")
 }
