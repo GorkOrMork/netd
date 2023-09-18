@@ -11,17 +11,17 @@
   roles:
     - zabbix_install
 
-- name: Установка Filebeat
+- name: Установка Vector
   hosts: filebeat_node
   become: yes
   roles:
-    - filebeat_install
+    - vector_install
 
-- name: Установка Vector
+- name: Установка Kibana
   hosts: kibana_server
   become: yes
   roles:
-    - vector_install
+    - kibana_install
 
 - name: Установка Elasticsearch
   hosts: elastic_server
