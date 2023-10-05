@@ -27,20 +27,20 @@ provider "yandex" {
 #=======================
 #=======================
 # Создание сети
-resource "yandex_vpc_network" "network1" {
-  name = "network1"
+resource "yandex_vpc_network" "network3" {
+  name = "network3"
 }
 # Создание подсетей
 resource "yandex_vpc_subnet" "subnet1" {
   name = "subnet1"
   zone = "ru-central1-a"
-  network_id = yandex_vpc_network.network1.id
+  network_id = yandex_vpc_network.network3.id
   v4_cidr_blocks = ["10.0.1.0/24"]
 }
-resource "yandex_vpc_subnet" "net2" {
-  name = ""
+resource "yandex_vpc_subnet" "subnet2" {
+  name = "subnet2"
   zone = "ru-central1-b"
-  network_id = yandex_vpc_network.network1.id
+  network_id = yandex_vpc_network.network3.id
   v4_cidr_blocks = ["10.0.2.0/24"]
 }
 #=======================
@@ -51,16 +51,15 @@ resource "yandex_compute_instance" "nginxserver1" {
   zone = "ru-central1-a"
   
   resources{
-    cores = 4
+    cores = 2
     core_fraction = 20
     memory = 8
   }
 
   boot_disk{
     initialize_params {
-      image_id = data.yandex_compute_image.debian.family
-      size = 39
-      description = "boot disk for nginx_server1"
+      image_id = "fd8il24jjf1hg8d4nq7i"
+      size = 10
     }
   }
   network_interface {
@@ -77,18 +76,20 @@ resource "yandex_compute_instance" "nginxserver2" {
   zone = "ru-central1-b"
   
   resources{
-    cores = 4
+    cores = 2
     core_fraction = 20
-    memory = 8
+    memory = 4
   }
 
   boot_disk{
     initialize_params {
-      image_id = data.yandex_compute_image.debian.family
-      size = 40
+      image_id = "fd8il24jjf1hg8d4nq7i"
+      name = "nginx2-disk"
+      size = 10
       description = "boot disk for nginx_server1"
     }
   }
+
   network_interface {
     subnet_id = yandex_vpc_subnet.subnet2.id
     nat = true
@@ -102,16 +103,18 @@ resource "yandex_compute_instance" "elastic"{
   name = "elastic"
   zone = "ru-central1-a"
   
-  resources{
+  resources {
     cores = 4
     core_fraction = 20
     memory = 8
   }
 
-  boot_disk{
+  boot_disk {
+#    disk_id = "elastic-disk"
     initialize_params {
-      image_id = data.yandex_compute_image.debian.family
-      size = 40
+      image_id = "fd8il24jjf1hg8d4nq7i"
+#      disk_id = "elastic-disk"
+      size = 20
       description = "boot disk for elastic"
     }
   }
@@ -124,7 +127,7 @@ resource "yandex_compute_instance" "elastic"{
   }
 }
 
-resource "yandex_compute_instance" "kibana"{
+resource "yandex_compute_instance" "kibana" {
   name = "kibana"
   zone = "ru-central1-a"
   
@@ -136,8 +139,9 @@ resource "yandex_compute_instance" "kibana"{
 
   boot_disk{
     initialize_params {
-      image_id = data.yandex_compute_image.debian.family
-      size = 40
+      image_id = "fd8il24jjf1hg8d4nq7i"
+#      disk_шв = "kibana-disk"
+      size = 20
       description = "boot disk for kibana"
     }
   }
@@ -191,20 +195,21 @@ resource "yandex_lb_network_load_balancer" "foo" {
 }
 
 resource "yandex_compute_instance" "zabbix_vm" {
-  name         = "zabbix-vm"
-  zone         = "ru-central1-a"
+  name = "zabbix-vm"
+  zone = "ru-central1-a"
 
-  resources{
-    cores = 4
+  resources {
+    cores = 2
     core_fraction = 20
-    memory = 8
+    memory = 6
   }
 
-
   boot_disk {
+#    disk_id = "zabbix-disk"
     initialize_params {
-      image_id = data.yandex_compute_image.debian.family
-      size = 40
+      image_id = "fd8il24jjf1hg8d4nq7i"
+#      disk_id = "zabbix-disk"
+      size = 20
       description = "boot disk for zabbix"
     }
   }
@@ -219,73 +224,47 @@ resource "yandex_compute_instance" "zabbix_vm" {
   }
 }
 
-resource "yandex_lb_network_load_balancer" "lb" {
-  name = "my-load-balancer"
-  region_id = "ru-central1"
-  folder_id = var.yc_folder_id
+resource "yandex_compute_snapshot" "nginx1-snapshot" {
+  name           = "nginx1-snapshot"
+  source_disk_id = yandex_compute_instance.nginxserver1.boot_disk[0].disk_id
 
-  listener {
-    name = "http"
-    port = 80
-    target_port = 8080
-    external_address_spec {
-      eip {}
-    }
-  }
-
-  target_group {
-    name = "my-target-group"
-    region_id = "ru-central1"
-    folder_id = var.yc_folder_id
-    backend {
-      target {
-        subnet_id = yandex_vpc_subnet.subnet1.id
-        instance_id = yandex_compute_instance.nginxserver1.id
-      }
-      target {
-        subnet_id = yandex_vpc_subnet.subnet2.id
-        instance_id = yandex_compute_instance.nginxserver2.id
-      }
-    }
+  timeouts {
+    update = "168h"
   }
 }
 
-resource "yandex_compute_instance_group" "instance_group" {
-  name = "my-instance-group"
-  zone = "ru-central1-a"
+resource "yandex_compute_snapshot" "nginx2-snapshot" {
+  name           = "nginx2-snapshot"
+  source_disk_id = yandex_compute_instance.nginxserver2.boot_disk[0].disk_id
 
-  scale_policy {
-    fixed_scale {
-      size = 2
-    }
-  }
-
-  deploy_policy {
-    max_unavailable = 1
-    max_expansion = 1
-  }
-
-  load_balancer_spec {
-    target_group_id = yandex_lb_target_group.tgt.id
-  }
-
-  version {
-    name = "v1"
-    instance_template {
-      instance_template_id = yandex_compute_instance.nginxserver1.id
-    }
-  }
-
-  version {
-    name = "v2"
-    instance_template {
-      instance_template_id = yandex_compute_instance.nginxserver2.id
-    }
+  timeouts { 
+    update = "168h"
   }
 }
-resource "yandex_compute_snapshot" "snapshot-1" {
-  name                 = "disk-snapshot1"
-  managed_disk_names   = ["disk1", "disk2", "disk3", "disk4", "disk5", "disk6"]
-  schedule_repeat_interval = "1d"
-  schedule_end_date = timestamp() + duration("7d")
+
+resource "yandex_compute_snapshot" "elastic-snapshot" {
+  name           = "elastic-snapshot"
+  source_disk_id = yandex_compute_instance.elastic.boot_disk[0].disk_id
+
+  timeouts { 
+    update = "168h"
+  }
+}
+
+resource "yandex_compute_snapshot" "kibana-snapshot" {
+  name = "kibana-disk"
+  source_disk_id           = yandex_compute_instance.kibana.boot_disk[0].disk_id
+
+  timeouts { 
+    update = "168h"
+  }
+}
+
+resource "yandex_compute_snapshot" "zabbix-snapshot" {
+  name = "zabbix-disk"
+  source_disk_id           = yandex_compute_instance.zabbix_vm.boot_disk[0].disk_id
+
+  timeouts { 
+    update = "168h"
+  }
 }

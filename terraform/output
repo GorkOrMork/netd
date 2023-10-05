@@ -1,0 +1,587 @@
+data.yandex_compute_image.debian: Reading...
+data.yandex_compute_image.debian: Read complete after 0s [id=fd8s17cfki4sd4l6oa59]
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # yandex_compute_instance.elastic will be created
+  + resource "yandex_compute_instance" "elastic" {
+      + created_at                = (known after apply)
+      + folder_id                 = (known after apply)
+      + fqdn                      = (known after apply)
+      + gpu_cluster_id            = (known after apply)
+      + hostname                  = (known after apply)
+      + id                        = (known after apply)
+      + metadata                  = {
+          + "user-data" = <<-EOT
+                users:
+                 - name: user
+                   groups: sudo
+                   shell: /bin/bash
+                   sudo: ['ALL=(ALL) NOPASSWD:ALL']
+                   ssh-authorized-keys:
+                     - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDZJucdm6J5YgKHbfMuy+8s3cCSQJ/X5rQJI4LwzJp16UZsza5VR3VzjKEnwAY72zrMpmT7x2dVO89mJyUpXpb2RJPcj9eTTr2RoSL0rZs+FkacwgHzjI0Y4857KRadOxBHaL4lzQUewUVjnG+DNczWRb73zU+WoMgy9xC2gw13Whmtk3C4om9J4vaMFPUkRa+/e00bEP6wH4nbTEzyZbdzQJEHJHWLx3bc3/M6QVZZV5lmPOQ9Y24JaQ7L/HO8Gns1baEr5Rh7C9gSJUKfUf7albGFPMwN112569RJa6QkgSDC4N6Vo13fZt7iiq21MB8z9v/I8MjUv6tiuCvD3Eaui62f5MyAMgY9ZfT+mk0X7GU1xmgnc37NlPpD/B5FrndPH/TVom85oiXh8gGEyad1ibGGHCiPlUXpxAsiiCuV5YWPPS1TxQfAXoXQYYp4NWVVCAG/6SS+umVOaekHouMhAxp4+SbrifNGVBIM2f3tCetxzZkz9qtWgfLGEomOomE= veber6@veber6
+            EOT
+        }
+      + name                      = "elastic"
+      + network_acceleration_type = "standard"
+      + platform_id               = "standard-v1"
+      + service_account_id        = (known after apply)
+      + status                    = (known after apply)
+      + zone                      = "ru-central1-a"
+
+      + boot_disk {
+          + auto_delete = true
+          + device_name = (known after apply)
+          + disk_id     = (known after apply)
+          + mode        = (known after apply)
+
+          + initialize_params {
+              + block_size  = (known after apply)
+              + description = "boot disk for elastic"
+              + image_id    = "fd8il24jjf1hg8d4nq7i"
+              + name        = (known after apply)
+              + size        = 20
+              + snapshot_id = (known after apply)
+              + type        = "network-hdd"
+            }
+        }
+
+      + network_interface {
+          + index              = (known after apply)
+          + ip_address         = (known after apply)
+          + ipv4               = true
+          + ipv6               = (known after apply)
+          + ipv6_address       = (known after apply)
+          + mac_address        = (known after apply)
+          + nat                = true
+          + nat_ip_address     = (known after apply)
+          + nat_ip_version     = (known after apply)
+          + security_group_ids = (known after apply)
+          + subnet_id          = (known after apply)
+        }
+
+      + resources {
+          + core_fraction = 20
+          + cores         = 4
+          + memory        = 8
+        }
+    }
+
+  # yandex_compute_instance.kibana will be created
+  + resource "yandex_compute_instance" "kibana" {
+      + created_at                = (known after apply)
+      + folder_id                 = (known after apply)
+      + fqdn                      = (known after apply)
+      + gpu_cluster_id            = (known after apply)
+      + hostname                  = (known after apply)
+      + id                        = (known after apply)
+      + metadata                  = {
+          + "user-data" = <<-EOT
+                users:
+                 - name: user
+                   groups: sudo
+                   shell: /bin/bash
+                   sudo: ['ALL=(ALL) NOPASSWD:ALL']
+                   ssh-authorized-keys:
+                     - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDZJucdm6J5YgKHbfMuy+8s3cCSQJ/X5rQJI4LwzJp16UZsza5VR3VzjKEnwAY72zrMpmT7x2dVO89mJyUpXpb2RJPcj9eTTr2RoSL0rZs+FkacwgHzjI0Y4857KRadOxBHaL4lzQUewUVjnG+DNczWRb73zU+WoMgy9xC2gw13Whmtk3C4om9J4vaMFPUkRa+/e00bEP6wH4nbTEzyZbdzQJEHJHWLx3bc3/M6QVZZV5lmPOQ9Y24JaQ7L/HO8Gns1baEr5Rh7C9gSJUKfUf7albGFPMwN112569RJa6QkgSDC4N6Vo13fZt7iiq21MB8z9v/I8MjUv6tiuCvD3Eaui62f5MyAMgY9ZfT+mk0X7GU1xmgnc37NlPpD/B5FrndPH/TVom85oiXh8gGEyad1ibGGHCiPlUXpxAsiiCuV5YWPPS1TxQfAXoXQYYp4NWVVCAG/6SS+umVOaekHouMhAxp4+SbrifNGVBIM2f3tCetxzZkz9qtWgfLGEomOomE= veber6@veber6
+            EOT
+        }
+      + name                      = "kibana"
+      + network_acceleration_type = "standard"
+      + platform_id               = "standard-v1"
+      + service_account_id        = (known after apply)
+      + status                    = (known after apply)
+      + zone                      = "ru-central1-a"
+
+      + boot_disk {
+          + auto_delete = true
+          + device_name = (known after apply)
+          + disk_id     = (known after apply)
+          + mode        = (known after apply)
+
+          + initialize_params {
+              + block_size  = (known after apply)
+              + description = "boot disk for kibana"
+              + image_id    = "fd8il24jjf1hg8d4nq7i"
+              + name        = (known after apply)
+              + size        = 20
+              + snapshot_id = (known after apply)
+              + type        = "network-hdd"
+            }
+        }
+
+      + network_interface {
+          + index              = (known after apply)
+          + ip_address         = (known after apply)
+          + ipv4               = true
+          + ipv6               = (known after apply)
+          + ipv6_address       = (known after apply)
+          + mac_address        = (known after apply)
+          + nat                = true
+          + nat_ip_address     = (known after apply)
+          + nat_ip_version     = (known after apply)
+          + security_group_ids = (known after apply)
+          + subnet_id          = (known after apply)
+        }
+
+      + resources {
+          + core_fraction = 20
+          + cores         = 4
+          + memory        = 8
+        }
+    }
+
+  # yandex_compute_instance.nginxserver1 will be created
+  + resource "yandex_compute_instance" "nginxserver1" {
+      + created_at                = (known after apply)
+      + folder_id                 = (known after apply)
+      + fqdn                      = (known after apply)
+      + gpu_cluster_id            = (known after apply)
+      + hostname                  = (known after apply)
+      + id                        = (known after apply)
+      + metadata                  = {
+          + "user-data" = <<-EOT
+                users:
+                 - name: user
+                   groups: sudo
+                   shell: /bin/bash
+                   sudo: ['ALL=(ALL) NOPASSWD:ALL']
+                   ssh-authorized-keys:
+                     - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDZJucdm6J5YgKHbfMuy+8s3cCSQJ/X5rQJI4LwzJp16UZsza5VR3VzjKEnwAY72zrMpmT7x2dVO89mJyUpXpb2RJPcj9eTTr2RoSL0rZs+FkacwgHzjI0Y4857KRadOxBHaL4lzQUewUVjnG+DNczWRb73zU+WoMgy9xC2gw13Whmtk3C4om9J4vaMFPUkRa+/e00bEP6wH4nbTEzyZbdzQJEHJHWLx3bc3/M6QVZZV5lmPOQ9Y24JaQ7L/HO8Gns1baEr5Rh7C9gSJUKfUf7albGFPMwN112569RJa6QkgSDC4N6Vo13fZt7iiq21MB8z9v/I8MjUv6tiuCvD3Eaui62f5MyAMgY9ZfT+mk0X7GU1xmgnc37NlPpD/B5FrndPH/TVom85oiXh8gGEyad1ibGGHCiPlUXpxAsiiCuV5YWPPS1TxQfAXoXQYYp4NWVVCAG/6SS+umVOaekHouMhAxp4+SbrifNGVBIM2f3tCetxzZkz9qtWgfLGEomOomE= veber6@veber6
+            EOT
+        }
+      + name                      = "nginxserver1"
+      + network_acceleration_type = "standard"
+      + platform_id               = "standard-v1"
+      + service_account_id        = (known after apply)
+      + status                    = (known after apply)
+      + zone                      = "ru-central1-a"
+
+      + boot_disk {
+          + auto_delete = true
+          + device_name = (known after apply)
+          + disk_id     = (known after apply)
+          + mode        = (known after apply)
+
+          + initialize_params {
+              + block_size  = (known after apply)
+              + description = (known after apply)
+              + image_id    = "fd8il24jjf1hg8d4nq7i"
+              + name        = (known after apply)
+              + size        = 10
+              + snapshot_id = (known after apply)
+              + type        = "network-hdd"
+            }
+        }
+
+      + network_interface {
+          + index              = (known after apply)
+          + ip_address         = (known after apply)
+          + ipv4               = true
+          + ipv6               = (known after apply)
+          + ipv6_address       = (known after apply)
+          + mac_address        = (known after apply)
+          + nat                = true
+          + nat_ip_address     = (known after apply)
+          + nat_ip_version     = (known after apply)
+          + security_group_ids = (known after apply)
+          + subnet_id          = (known after apply)
+        }
+
+      + resources {
+          + core_fraction = 20
+          + cores         = 2
+          + memory        = 8
+        }
+    }
+
+  # yandex_compute_instance.nginxserver2 will be created
+  + resource "yandex_compute_instance" "nginxserver2" {
+      + created_at                = (known after apply)
+      + folder_id                 = (known after apply)
+      + fqdn                      = (known after apply)
+      + gpu_cluster_id            = (known after apply)
+      + hostname                  = (known after apply)
+      + id                        = (known after apply)
+      + metadata                  = {
+          + "user-data" = <<-EOT
+                users:
+                 - name: user
+                   groups: sudo
+                   shell: /bin/bash
+                   sudo: ['ALL=(ALL) NOPASSWD:ALL']
+                   ssh-authorized-keys:
+                     - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDZJucdm6J5YgKHbfMuy+8s3cCSQJ/X5rQJI4LwzJp16UZsza5VR3VzjKEnwAY72zrMpmT7x2dVO89mJyUpXpb2RJPcj9eTTr2RoSL0rZs+FkacwgHzjI0Y4857KRadOxBHaL4lzQUewUVjnG+DNczWRb73zU+WoMgy9xC2gw13Whmtk3C4om9J4vaMFPUkRa+/e00bEP6wH4nbTEzyZbdzQJEHJHWLx3bc3/M6QVZZV5lmPOQ9Y24JaQ7L/HO8Gns1baEr5Rh7C9gSJUKfUf7albGFPMwN112569RJa6QkgSDC4N6Vo13fZt7iiq21MB8z9v/I8MjUv6tiuCvD3Eaui62f5MyAMgY9ZfT+mk0X7GU1xmgnc37NlPpD/B5FrndPH/TVom85oiXh8gGEyad1ibGGHCiPlUXpxAsiiCuV5YWPPS1TxQfAXoXQYYp4NWVVCAG/6SS+umVOaekHouMhAxp4+SbrifNGVBIM2f3tCetxzZkz9qtWgfLGEomOomE= veber6@veber6
+            EOT
+        }
+      + name                      = "nginxserver2"
+      + network_acceleration_type = "standard"
+      + platform_id               = "standard-v1"
+      + service_account_id        = (known after apply)
+      + status                    = (known after apply)
+      + zone                      = "ru-central1-b"
+
+      + boot_disk {
+          + auto_delete = true
+          + device_name = (known after apply)
+          + disk_id     = (known after apply)
+          + mode        = (known after apply)
+
+          + initialize_params {
+              + block_size  = (known after apply)
+              + description = "boot disk for nginx_server1"
+              + image_id    = "fd8il24jjf1hg8d4nq7i"
+              + name        = "nginx2-disk"
+              + size        = 10
+              + snapshot_id = (known after apply)
+              + type        = "network-hdd"
+            }
+        }
+
+      + network_interface {
+          + index              = (known after apply)
+          + ip_address         = (known after apply)
+          + ipv4               = true
+          + ipv6               = (known after apply)
+          + ipv6_address       = (known after apply)
+          + mac_address        = (known after apply)
+          + nat                = true
+          + nat_ip_address     = (known after apply)
+          + nat_ip_version     = (known after apply)
+          + security_group_ids = (known after apply)
+          + subnet_id          = (known after apply)
+        }
+
+      + resources {
+          + core_fraction = 20
+          + cores         = 2
+          + memory        = 4
+        }
+    }
+
+  # yandex_compute_instance.zabbix_vm will be created
+  + resource "yandex_compute_instance" "zabbix_vm" {
+      + created_at                = (known after apply)
+      + folder_id                 = (known after apply)
+      + fqdn                      = (known after apply)
+      + gpu_cluster_id            = (known after apply)
+      + hostname                  = (known after apply)
+      + id                        = (known after apply)
+      + metadata                  = {
+          + "ssh-keys" = <<-EOT
+                users:
+                 - name: user
+                   groups: sudo
+                   shell: /bin/bash
+                   sudo: ['ALL=(ALL) NOPASSWD:ALL']
+                   ssh-authorized-keys:
+                     - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDZJucdm6J5YgKHbfMuy+8s3cCSQJ/X5rQJI4LwzJp16UZsza5VR3VzjKEnwAY72zrMpmT7x2dVO89mJyUpXpb2RJPcj9eTTr2RoSL0rZs+FkacwgHzjI0Y4857KRadOxBHaL4lzQUewUVjnG+DNczWRb73zU+WoMgy9xC2gw13Whmtk3C4om9J4vaMFPUkRa+/e00bEP6wH4nbTEzyZbdzQJEHJHWLx3bc3/M6QVZZV5lmPOQ9Y24JaQ7L/HO8Gns1baEr5Rh7C9gSJUKfUf7albGFPMwN112569RJa6QkgSDC4N6Vo13fZt7iiq21MB8z9v/I8MjUv6tiuCvD3Eaui62f5MyAMgY9ZfT+mk0X7GU1xmgnc37NlPpD/B5FrndPH/TVom85oiXh8gGEyad1ibGGHCiPlUXpxAsiiCuV5YWPPS1TxQfAXoXQYYp4NWVVCAG/6SS+umVOaekHouMhAxp4+SbrifNGVBIM2f3tCetxzZkz9qtWgfLGEomOomE= veber6@veber6
+            EOT
+        }
+      + name                      = "zabbix-vm"
+      + network_acceleration_type = "standard"
+      + platform_id               = "standard-v1"
+      + service_account_id        = (known after apply)
+      + status                    = (known after apply)
+      + zone                      = "ru-central1-a"
+
+      + boot_disk {
+          + auto_delete = true
+          + device_name = (known after apply)
+          + disk_id     = (known after apply)
+          + mode        = (known after apply)
+
+          + initialize_params {
+              + block_size  = (known after apply)
+              + description = "boot disk for zabbix"
+              + image_id    = "fd8il24jjf1hg8d4nq7i"
+              + name        = (known after apply)
+              + size        = 20
+              + snapshot_id = (known after apply)
+              + type        = "network-hdd"
+            }
+        }
+
+      + network_interface {
+          + index              = (known after apply)
+          + ip_address         = (known after apply)
+          + ipv4               = true
+          + ipv6               = (known after apply)
+          + ipv6_address       = (known after apply)
+          + mac_address        = (known after apply)
+          + nat                = true
+          + nat_ip_address     = (known after apply)
+          + nat_ip_version     = (known after apply)
+          + security_group_ids = (known after apply)
+          + subnet_id          = (known after apply)
+        }
+
+      + resources {
+          + core_fraction = 20
+          + cores         = 2
+          + memory        = 6
+        }
+    }
+
+  # yandex_compute_snapshot.elastic-snapshot will be created
+  + resource "yandex_compute_snapshot" "elastic-snapshot" {
+      + created_at     = (known after apply)
+      + disk_size      = (known after apply)
+      + folder_id      = (known after apply)
+      + id             = (known after apply)
+      + name           = "elastic-snapshot"
+      + source_disk_id = (known after apply)
+      + storage_size   = (known after apply)
+
+      + timeouts {
+          + update = "168h"
+        }
+    }
+
+  # yandex_compute_snapshot.kibana-snapshot will be created
+  + resource "yandex_compute_snapshot" "kibana-snapshot" {
+      + created_at     = (known after apply)
+      + disk_size      = (known after apply)
+      + folder_id      = (known after apply)
+      + id             = (known after apply)
+      + name           = "kibana-disk"
+      + source_disk_id = (known after apply)
+      + storage_size   = (known after apply)
+
+      + timeouts {
+          + update = "168h"
+        }
+    }
+
+  # yandex_compute_snapshot.nginx1-snapshot will be created
+  + resource "yandex_compute_snapshot" "nginx1-snapshot" {
+      + created_at     = (known after apply)
+      + disk_size      = (known after apply)
+      + folder_id      = (known after apply)
+      + id             = (known after apply)
+      + name           = "nginx1-snapshot"
+      + source_disk_id = (known after apply)
+      + storage_size   = (known after apply)
+
+      + timeouts {
+          + update = "168h"
+        }
+    }
+
+  # yandex_compute_snapshot.nginx2-snapshot will be created
+  + resource "yandex_compute_snapshot" "nginx2-snapshot" {
+      + created_at     = (known after apply)
+      + disk_size      = (known after apply)
+      + folder_id      = (known after apply)
+      + id             = (known after apply)
+      + name           = "nginx2-snapshot"
+      + source_disk_id = (known after apply)
+      + storage_size   = (known after apply)
+
+      + timeouts {
+          + update = "168h"
+        }
+    }
+
+  # yandex_compute_snapshot.zabbix-snapshot will be created
+  + resource "yandex_compute_snapshot" "zabbix-snapshot" {
+      + created_at     = (known after apply)
+      + disk_size      = (known after apply)
+      + folder_id      = (known after apply)
+      + id             = (known after apply)
+      + name           = "zabbix-disk"
+      + source_disk_id = (known after apply)
+      + storage_size   = (known after apply)
+
+      + timeouts {
+          + update = "168h"
+        }
+    }
+
+  # yandex_lb_network_load_balancer.foo will be created
+  + resource "yandex_lb_network_load_balancer" "foo" {
+      + created_at          = (known after apply)
+      + deletion_protection = (known after apply)
+      + folder_id           = (known after apply)
+      + id                  = (known after apply)
+      + name                = "my-network-load-balancer"
+      + region_id           = (known after apply)
+      + type                = "external"
+
+      + attached_target_group {
+          + target_group_id = (known after apply)
+
+          + healthcheck {
+              + healthy_threshold   = 2
+              + interval            = 2
+              + name                = "http"
+              + timeout             = 1
+              + unhealthy_threshold = 2
+
+              + http_options {
+                  + path = "/"
+                  + port = 80
+                }
+            }
+        }
+
+      + listener {
+          + name        = "my-listener"
+          + port        = 80
+          + protocol    = (known after apply)
+          + target_port = (known after apply)
+
+          + external_address_spec {
+              + address    = (known after apply)
+              + ip_version = "ipv4"
+            }
+        }
+    }
+
+  # yandex_lb_target_group.tgtest will be created
+  + resource "yandex_lb_target_group" "tgtest" {
+      + created_at = (known after apply)
+      + folder_id  = (known after apply)
+      + id         = (known after apply)
+      + name       = "tgtest"
+      + region_id  = (known after apply)
+
+      + target {
+          + address   = (known after apply)
+          + subnet_id = (known after apply)
+        }
+      + target {
+          + address   = (known after apply)
+          + subnet_id = (known after apply)
+        }
+    }
+
+  # yandex_vpc_network.network3 will be created
+  + resource "yandex_vpc_network" "network3" {
+      + created_at                = (known after apply)
+      + default_security_group_id = (known after apply)
+      + folder_id                 = (known after apply)
+      + id                        = (known after apply)
+      + labels                    = (known after apply)
+      + name                      = "network3"
+      + subnet_ids                = (known after apply)
+    }
+
+  # yandex_vpc_subnet.subnet1 will be created
+  + resource "yandex_vpc_subnet" "subnet1" {
+      + created_at     = (known after apply)
+      + folder_id      = (known after apply)
+      + id             = (known after apply)
+      + labels         = (known after apply)
+      + name           = "subnet1"
+      + network_id     = (known after apply)
+      + v4_cidr_blocks = [
+          + "10.0.1.0/24",
+        ]
+      + v6_cidr_blocks = (known after apply)
+      + zone           = "ru-central1-a"
+    }
+
+  # yandex_vpc_subnet.subnet2 will be created
+  + resource "yandex_vpc_subnet" "subnet2" {
+      + created_at     = (known after apply)
+      + folder_id      = (known after apply)
+      + id             = (known after apply)
+      + labels         = (known after apply)
+      + name           = "subnet2"
+      + network_id     = (known after apply)
+      + v4_cidr_blocks = [
+          + "10.0.2.0/24",
+        ]
+      + v6_cidr_blocks = (known after apply)
+      + zone           = "ru-central1-b"
+    }
+
+Plan: 15 to add, 0 to change, 0 to destroy.
+
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+yandex_vpc_network.network3: Creating...
+yandex_vpc_network.network3: Creation complete after 2s [id=enp4etc339mt0tn9qh3o]
+yandex_vpc_subnet.subnet2: Creating...
+yandex_vpc_subnet.subnet1: Creating...
+yandex_vpc_subnet.subnet2: Creation complete after 1s [id=e2lkkme1ca3au0hb8mmu]
+yandex_compute_instance.nginxserver2: Creating...
+yandex_vpc_subnet.subnet1: Creation complete after 2s [id=e9b4g5k26ruooo3b50q5]
+yandex_compute_instance.zabbix_vm: Creating...
+yandex_compute_instance.nginxserver1: Creating...
+yandex_compute_instance.elastic: Creating...
+yandex_compute_instance.kibana: Creating...
+yandex_compute_instance.nginxserver2: Still creating... [10s elapsed]
+yandex_compute_instance.nginxserver1: Still creating... [10s elapsed]
+yandex_compute_instance.zabbix_vm: Still creating... [10s elapsed]
+yandex_compute_instance.elastic: Still creating... [10s elapsed]
+yandex_compute_instance.kibana: Still creating... [10s elapsed]
+yandex_compute_instance.nginxserver2: Still creating... [20s elapsed]
+yandex_compute_instance.elastic: Still creating... [20s elapsed]
+yandex_compute_instance.zabbix_vm: Still creating... [20s elapsed]
+yandex_compute_instance.nginxserver1: Still creating... [20s elapsed]
+yandex_compute_instance.kibana: Still creating... [20s elapsed]
+yandex_compute_instance.nginxserver2: Still creating... [30s elapsed]
+yandex_compute_instance.nginxserver1: Still creating... [30s elapsed]
+yandex_compute_instance.zabbix_vm: Still creating... [30s elapsed]
+yandex_compute_instance.elastic: Still creating... [30s elapsed]
+yandex_compute_instance.kibana: Still creating... [30s elapsed]
+yandex_compute_instance.zabbix_vm: Creation complete after 36s [id=fhmnnunpi7oig04ogcl7]
+yandex_compute_snapshot.zabbix-snapshot: Creating...
+yandex_compute_instance.nginxserver1: Creation complete after 37s [id=fhmcfj78i8qara0p5d97]
+yandex_compute_snapshot.nginx1-snapshot: Creating...
+yandex_compute_instance.nginxserver2: Still creating... [40s elapsed]
+yandex_compute_instance.kibana: Still creating... [40s elapsed]
+yandex_compute_instance.elastic: Still creating... [40s elapsed]
+yandex_compute_instance.kibana: Creation complete after 43s [id=fhmu7rtp29siagp2lji4]
+yandex_compute_snapshot.kibana-snapshot: Creating...
+yandex_compute_instance.elastic: Creation complete after 45s [id=fhmcadtejrgr8fbj787k]
+yandex_compute_snapshot.elastic-snapshot: Creating...
+yandex_compute_snapshot.zabbix-snapshot: Still creating... [10s elapsed]
+yandex_compute_snapshot.nginx1-snapshot: Still creating... [10s elapsed]
+yandex_compute_instance.nginxserver2: Still creating... [50s elapsed]
+yandex_compute_snapshot.kibana-snapshot: Still creating... [10s elapsed]
+yandex_compute_snapshot.elastic-snapshot: Still creating... [10s elapsed]
+yandex_compute_snapshot.zabbix-snapshot: Still creating... [20s elapsed]
+yandex_compute_snapshot.nginx1-snapshot: Still creating... [20s elapsed]
+yandex_compute_instance.nginxserver2: Still creating... [1m0s elapsed]
+yandex_compute_snapshot.kibana-snapshot: Still creating... [20s elapsed]
+yandex_compute_snapshot.elastic-snapshot: Still creating... [20s elapsed]
+yandex_compute_snapshot.zabbix-snapshot: Still creating... [30s elapsed]
+yandex_compute_snapshot.nginx1-snapshot: Still creating... [30s elapsed]
+yandex_compute_instance.nginxserver2: Creation complete after 1m8s [id=epdus1l8mun8te1hoarc]
+yandex_compute_snapshot.nginx2-snapshot: Creating...
+yandex_lb_target_group.tgtest: Creating...
+yandex_lb_target_group.tgtest: Creation complete after 2s [id=enpqqu8e909jkenksg60]
+yandex_lb_network_load_balancer.foo: Creating...
+yandex_compute_snapshot.kibana-snapshot: Still creating... [30s elapsed]
+yandex_lb_network_load_balancer.foo: Creation complete after 6s [id=enpti9ko58g2vl9rpv2h]
+yandex_compute_snapshot.elastic-snapshot: Still creating... [30s elapsed]
+yandex_compute_snapshot.zabbix-snapshot: Still creating... [40s elapsed]
+yandex_compute_snapshot.nginx1-snapshot: Still creating... [40s elapsed]
+yandex_compute_snapshot.zabbix-snapshot: Creation complete after 41s [id=fd8ruh6g5k2b3qpecoh1]
+yandex_compute_snapshot.nginx2-snapshot: Still creating... [10s elapsed]
+yandex_compute_snapshot.kibana-snapshot: Still creating... [40s elapsed]
+yandex_compute_snapshot.elastic-snapshot: Still creating... [40s elapsed]
+yandex_compute_snapshot.nginx1-snapshot: Still creating... [50s elapsed]
+yandex_compute_snapshot.nginx2-snapshot: Still creating... [20s elapsed]
+yandex_compute_snapshot.kibana-snapshot: Creation complete after 46s [id=fd8v4agotc5ng3ah57an]
+yandex_compute_snapshot.elastic-snapshot: Still creating... [50s elapsed]
+yandex_compute_snapshot.nginx1-snapshot: Still creating... [1m0s elapsed]
+yandex_compute_snapshot.nginx2-snapshot: Still creating... [30s elapsed]
+yandex_compute_snapshot.elastic-snapshot: Still creating... [1m0s elapsed]
+yandex_compute_snapshot.nginx1-snapshot: Still creating... [1m10s elapsed]
+yandex_compute_snapshot.nginx2-snapshot: Still creating... [40s elapsed]
+yandex_compute_snapshot.nginx2-snapshot: Creation complete after 41s [id=fd89thgdel5ea5re72fb]
+yandex_compute_snapshot.nginx1-snapshot: Creation complete after 1m11s [id=fd8dutrsbps2p092cro2]
+yandex_compute_snapshot.elastic-snapshot: Creation complete after 1m7s [id=fd886cglgc2gaj1ugfvl]
+
+Apply complete! Resources: 15 added, 0 changed, 0 destroyed.
